@@ -69,15 +69,12 @@ A production-ready SaaS application that accepts **any** CSV file and uses **Gem
 
 ```bash
 git clone <repo-url>
-cd groweasy-crm-importer
 ```
 
 ### 2. Backend Setup
 
 ```bash
 cd backend
-cp .env.example .env
-# Edit .env and add your GEMINI_API_KEY
 npm install
 npm run dev
 ```
@@ -86,7 +83,6 @@ npm run dev
 
 ```bash
 cd frontend
-cp .env.local.example .env.local
 npm install
 npm run dev
 ```
@@ -110,48 +106,10 @@ The frontend runs at `http://localhost:3000` and the backend at `http://localhos
 | `AI_MAX_RETRIES` | Max retry attempts | `3` |
 | `AI_RETRY_DELAY_MS` | Base retry delay | `1000` |
 
-### Frontend (`frontend/.env.local`)
+### Frontend (`frontend/.env`)
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `NEXT_PUBLIC_API_URL` | Backend URL | `http://localhost:3001` |
-
----
-
-## 📡 API Documentation
-
-### `POST /api/import`
-
-Upload a CSV file for AI-powered CRM field mapping.
-
-**Request:**
-- Content-Type: `multipart/form-data`
-- Field: `file` (CSV file, max 10MB)
-
-**Response:** Server-Sent Events (SSE) stream
-
-```
-data: {"type":"progress","batchIndex":1,"totalBatches":4,"message":"Processing batch 1 of 4..."}
-data: {"type":"progress","batchIndex":2,"totalBatches":4,"message":"Batch 2/4 complete: 25 records, 0 skipped"}
-data: {"type":"complete","result":{"records":[...],"skipped":[...],"summary":{"total":100,"imported":95,"skipped":5}}}
-```
-
-### `POST /api/import/cancel`
-
-Cancel an active import.
-
-**Request:**
-```json
-{ "importId": "import_1234567890" }
-```
-
-### `GET /api/health`
-
-Health check endpoint.
-
-**Response:**
-```json
-{ "status": "healthy", "timestamp": "2024-01-01T00:00:00.000Z", "uptime": 123.45 }
-```
 
 ---
