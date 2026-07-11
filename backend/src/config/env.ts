@@ -35,7 +35,7 @@ function getEnvNumber(key: string, defaultValue: number): number {
 export const env: EnvConfig = {
   PORT: getEnvNumber('PORT', 3001),
   NODE_ENV: getEnvVar('NODE_ENV', 'development'),
-  CORS_ORIGIN: getEnvVar('CORS_ORIGIN', 'http://localhost:3000'),
+  CORS_ORIGIN: getEnvVar('CORS_ORIGIN', 'http://localhost:3000').replace(/\/$/, ''),
   GEMINI_API_KEY: getEnvVar('GEMINI_API_KEY'),
   MAX_FILE_SIZE_MB: getEnvNumber('MAX_FILE_SIZE_MB', 10),
   AI_BATCH_SIZE: getEnvNumber('AI_BATCH_SIZE', 25),
